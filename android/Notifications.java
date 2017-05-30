@@ -13,10 +13,13 @@ import android.content.Context;
 import android.support.v4.app.NotificationCompat;
 import android.content.pm.ApplicationInfo;
 import com.godot.game.R;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 
 public class Notifications extends Godot.SingletonBase {
 
     Application app;
+    Bitmap large_icon;
 
     public void notify(int id, String title, String text, int delay) {
         NotificationCompat.Builder mBuilder =
@@ -44,13 +47,21 @@ public class Notifications extends Godot.SingletonBase {
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
     }
 
+    public void cancel(int id){
+        Intent delayIntent = new Intent(app, NotificationPublisher.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(app, id, delayIntent, 0);
+        AlarmManager alarmManager = (AlarmManager) app.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+    }
+
     static public Godot.SingletonBase initialize(Activity p_activity) {
         return new Notifications(p_activity);
     }
 
     public Notifications(Activity p_activity) {
-        registerClass("Notifications", new String[]{"notify"});
+        registerClass("Notifications", new String[]{"notify", "cancel"});
 
         app = p_activity.getApplication();
+        large_icon = BitmapFactory.decodeResource(app.getResources(), R.drawable.icon);
     }
 }
