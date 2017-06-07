@@ -15,11 +15,16 @@ import android.content.pm.ApplicationInfo;
 import com.godot.game.R;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
+import android.os.SystemClock;
 
 public class Notifications extends Godot.SingletonBase {
 
     Application app;
     Bitmap large_icon;
+
+    public float getUptime(){
+        return 0.001f*SystemClock.uptimeMillis();
+    }
 
     public void notify(int id, String title, String text, int delay) {
         NotificationCompat.Builder mBuilder =
@@ -59,7 +64,7 @@ public class Notifications extends Godot.SingletonBase {
     }
 
     public Notifications(Activity p_activity) {
-        registerClass("Notifications", new String[]{"notify", "cancel"});
+        registerClass("Notifications", new String[]{"notify", "cancel", "getUptime"});
 
         app = p_activity.getApplication();
         large_icon = BitmapFactory.decodeResource(app.getResources(), R.drawable.icon);
