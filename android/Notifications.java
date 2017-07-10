@@ -23,7 +23,7 @@ public class Notifications extends Godot.SingletonBase {
     Bitmap large_icon;
 
     public float getUptime(){
-        return 0.001f*SystemClock.uptimeMillis();
+        return 0.001f*SystemClock.elapsedRealtime();
     }
 
     public void notify(int id, String title, String text, int delay) {
