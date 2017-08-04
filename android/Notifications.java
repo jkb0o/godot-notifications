@@ -30,13 +30,14 @@ public class Notifications extends Godot.SingletonBase {
         NotificationCompat.Builder mBuilder =
             new NotificationCompat.Builder(app)
             .setSmallIcon(R.drawable.icon)
+            //.setLargeIcon(large_icon)
             .setContentTitle(title)
             .setContentText(text)
+            //.setVisibility(1)
             .setAutoCancel(true);
         final Intent notificationIntent = new Intent(app, Godot.class);
         notificationIntent.setAction(Intent.ACTION_MAIN);
         notificationIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pi = PendingIntent.getActivity(app, 0, notificationIntent, 
                                    PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
