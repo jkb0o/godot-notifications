@@ -15,7 +15,7 @@ import android.content.pm.ApplicationInfo;
 import com.godot.game.R;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
-import android.os.SystemClock;
+import java.lang.System;
 
 public class Notifications extends Godot.SingletonBase {
 
@@ -32,7 +32,11 @@ public class Notifications extends Godot.SingletonBase {
             .setSmallIcon(R.drawable.icon)
             //.setLargeIcon(large_icon)
             .setContentTitle(title)
+            .setWhen(delay*1000 + System.currentTimeMillis())
+            .setShowWhen(true)
             .setContentText(text)
+            
+
             //.setVisibility(1)
             .setAutoCancel(true);
         final Intent notificationIntent = new Intent(app, Godot.class);
